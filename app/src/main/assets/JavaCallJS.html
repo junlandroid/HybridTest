@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Java调JS</title>
+
+    <script type="text/javascript">
+//        alert("hello")
+        var text;
+        window.onload = function () {
+//            var btn = document.getElementById("btn");
+//            btn.onclick = function () {
+//                document.getElementById("content").innerText = "修改之后的文本";
+//            };
+
+            text = document.getElementById("text");
+
+
+        }
+        function javaCallJS(args) {
+            //            document.getElementById("content").innerHTML = args;
+            alert("来自android调用")
+        }
+        function callAndroid() {
+            // 由于对象映射，所以调用test对象等于调用Android映射的对象
+            <!--alert("来自android调用")-->
+            // 调用prompt（）
+//            var result=prompt("js://demo?arg1=111&arg2=222");
+//            alert("demo " + result);
+
+            test.hello("js调用了android中的hello方法");
+        }
+    </script>
+    <script type="text/javascript">
+        function callAndroid2() {
+            /*约定的url协议为：js://webview?arg1=111&arg2=222*/
+            document.location = "js://webview?arg1=111&arg2=222";
+        }
+    </script>
+    <script type="text/javascript">
+        function callAndroid3() {
+            var result = prompt("js://demo?param1=junl&param2=军亮")
+            alert("demo " + result);
+        }
+    </script>
+    <script type="text/javascript">
+        /*Android传值给JS*/
+        function Android2JS(result) {
+            alert("result is "+ result);
+        }
+    </script>
+
+</head>
+<body>
+
+<p id="content">以下是JavaScript代码</p>
+
+<button id="btn" onclick="callAndroid()">JS调用Android代码---WebView的addJavascriptInterface（）进行对象映射 </button><br/>
+<button id="btn2" onclick="callAndroid2()">JS调用Android代码---通过 WebViewClient 的方法shouldOverrideUrlLoading ()回调拦截 url </button><br/>
+<button id="btn3" onclick="callAndroid3()">JS调用Android代码---通过 WebChromeClient 的onJsAlert()、onJsConfirm()、onJsPrompt（）方法回调拦截JS对话框alert()、confirm()、prompt（） 消息 </button><br/>
+<p id="text"></p>
+
+
+</body>
+</html>
