@@ -24,11 +24,13 @@ import java.util.Set;
 /**
  * @Date:2018/1/3
  * @Desc:
+ * @link:http://blog.csdn.net/carson_ho/article/details/64904691
  * @Foreword:但行好事，莫问前程，只需努力每一天。
  * @author:junl_yuan
  */
 
 public class JavaCallJS extends AppCompatActivity{
+    private static final String TAG = JavaCallJS.class.getSimpleName();
     private Button button;
     private WebView webview;
     private WebSettings webSettings;
@@ -93,7 +95,9 @@ public class JavaCallJS extends AppCompatActivity{
                 b.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(JavaCallJS.this, "点击了确定", Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, result.toString());
+                        Toast.makeText(JavaCallJS.this, "点击了JS确定按钮，当JS确定按钮被点击时回调", Toast.LENGTH_SHORT).show();
+
                     }
                 });
                 b.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -110,12 +114,17 @@ public class JavaCallJS extends AppCompatActivity{
             @Override
             public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, JsPromptResult result) {
 
-                Uri uri = Uri.parse(url);
+                Uri uri = Uri.parse(message);
                 if (uri.getScheme().equals("js")) {
                     if (uri.getAuthority().equals("demo")) {
-
-//                        Set<String> names = uri.getQueryParameterNames();
-                        result.confirm("来自Android端的问候~~");
+                        Set<String> names = uri.getQueryParameterNames();
+                        for (String name : names) {
+                            Log.e("参数名", name.toString());//拿到协议中携带的某个参数名key
+                            String parameter = uri.getQueryParameter(name);//拿到协议中携带的某个参数名对应的value
+                            Log.e("参数值", parameter);
+                            Toast.makeText(JavaCallJS.this, "参数名:" + name.toString() + "  参数值:" + parameter, Toast.LENGTH_SHORT).show();
+                        }
+                        result.confirm("js调用了Android的方法成功啦");//通过该方法传值给JS
                     }
                     return true;
                 }

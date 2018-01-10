@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/HybridTest.iml" filepath="$PROJECT_DIR$/HybridTest.iml" />
+      <module fileurl="file://E:\androidworkwpace\HybridTest\HybridTest.iml" filepath="E:\androidworkwpace\HybridTest\HybridTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://E:\androidworkwpace\HybridTest\app\app.iml" filepath="E:\androidworkwpace\HybridTest\app\app.iml" />
     </modules>
   </component>
 </project>
