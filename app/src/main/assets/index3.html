@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Document</title>
+    <script type="text/javascript">
+       function call(){
+            var value = document.getElementById("input").value;
+            alert(value);
+       }
+       //警告
+       function onAlert(){
+            alert("This is a alert sample from html");
+       }
+       //确定
+       function onConfirm(){
+          var b = confirm("are you sure to login?");
+          alert("your choice is "+b);
+       }
+       //提示
+       function onPrompt(){
+           var b = prompt("please input your password","aaa");
+           alert("your input is "+b);
+       }
+    </script>
+
+</head>
+<body>
+<input type="text" id="input" value="default"/>
+<button onclick=call()>点我弹出Alert</button></br>
+<input type="button" value="alert" onclick="onAlert()"/></br>
+<input type="button" value="confirm" onclick="onConfirm()"/></br>
+<input type="button" value="prompt" onclick="onPrompt()"/></br>
+</body>
+
+</html>

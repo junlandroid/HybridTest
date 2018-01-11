@@ -1,6 +1,7 @@
 package com.hy.junl.hybridtest;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -97,7 +98,7 @@ public class JavaCallJS extends AppCompatActivity{
                     public void onClick(DialogInterface dialog, int which) {
                         Log.e(TAG, result.toString());
                         Toast.makeText(JavaCallJS.this, "点击了JS确定按钮，当JS确定按钮被点击时回调", Toast.LENGTH_SHORT).show();
-
+                        result.confirm();// 因为没有绑定事件，需要强行confirm,否则页面会一片空白显示不了内容，别的Button也无法点击
                     }
                 });
                 b.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -107,6 +108,27 @@ public class JavaCallJS extends AppCompatActivity{
                     }
                 });
                 b.setCancelable(false);
+                b.create().show();
+                return true;
+            }
+
+            @Override
+            public boolean onJsConfirm(WebView view, String url, String message, final JsResult result) {
+                AlertDialog.Builder b = new AlertDialog.Builder(JavaCallJS.this);
+                b.setTitle("Confirm");
+                b.setMessage(message);
+                b.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        result.confirm();
+                    }
+                });
+                b.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        result.cancel();
+                    }
+                });
                 b.create().show();
                 return true;
             }
@@ -126,9 +148,8 @@ public class JavaCallJS extends AppCompatActivity{
                         }
                         result.confirm("js调用了Android的方法成功啦");//通过该方法传值给JS
                     }
-                    return true;
                 }
-                return super.onJsPrompt(view, url, message, defaultValue, result);
+               return true;
             }
         });
     }
@@ -158,4 +179,7 @@ public class JavaCallJS extends AppCompatActivity{
 
     }
 
+    public void Skip2Another(View view) {
+        startActivity(new Intent(JavaCallJS.this, TestAlertActivity.class));
+    }
 }
